@@ -8,68 +8,189 @@
 
 <style>
 
-body{
-font-family:Arial,sans-serif;
-background:#fffaf0;
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(
+180deg,
+#fff9df 0%,
+#fff2b8 50%,
+#f7d86a 100%
+);
+color:#222;
+min-height:100vh;
 }
 
 header{
-background:#7a0000;
-padding:20px;
-text-align:center;
+background:linear-gradient(
+135deg,
+#6d0000 0%,
+#a00000 40%,
+#f4c430 100%
+);
+padding:20px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 3px 12px rgba(0,0,0,.15);
 }
 
-header a{
+.logo{
+font-size:40px;
+font-weight:bold;
+color:white;
+text-shadow:2px 2px 4px rgba(0,0,0,.3);
+}
+
+nav{
+display:flex;
+gap:18px;
+align-items:center;
+flex-wrap:wrap;
+}
+
+nav a{
 color:white;
 text-decoration:none;
-margin:0 15px;
 font-size:18px;
 font-weight:bold;
+transition:.3s;
 }
 
-h1{
+nav a:hover{
+color:#fff5b5;
+}
+
+.hero{
 text-align:center;
+padding:40px 20px;
+}
+
+.hero img{
+width:180px;
+height:180px;
+border-radius:50%;
+object-fit:cover;
+border:6px solid #f4c430;
+box-shadow:0 6px 25px rgba(0,0,0,.2);
+}
+
+.hero h1{
+font-size:58px;
 color:#7a0000;
-margin-top:30px;
+margin-top:20px;
+}
+
+.hero p{
+font-size:22px;
+max-width:800px;
+margin:15px auto;
+line-height:1.8;
+}
+
+.searchBox{
+max-width:700px;
+margin:0 auto 30px;
+padding:0 20px;
 }
 
 #search{
-display:block;
-margin:20px auto;
-padding:12px;
-width:350px;
-max-width:90%;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+border-radius:12px;
+outline:none;
+box-shadow:0 4px 15px rgba(0,0,0,.12);
 }
 
 .quote{
-background:white;
-max-width:800px;
-margin:15px auto;
-padding:20px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+background:#fffdf0;
+max-width:950px;
+margin:25px auto;
+padding:30px;
+border-radius:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.12);
+border-top:6px solid #f4c430;
 }
 
 .quote h3{
 color:#7a0000;
-margin-bottom:10px;
+font-size:28px;
+margin-bottom:15px;
 }
 
 .quote p{
-font-size:18px;
-line-height:1.7;
+font-size:22px;
+line-height:1.8;
 }
 
 .noResult{
 text-align:center;
-padding:30px;
-font-size:20px;
+font-size:24px;
+font-weight:bold;
 color:#7a0000;
+padding:40px;
+}
+
+footer{
+background:linear-gradient(
+135deg,
+#6d0000,
+#f4c430
+);
+color:white;
+text-align:center;
+padding:22px;
+margin-top:50px;
+font-weight:bold;
+}
+
+@media(max-width:768px){
+
+header{
+flex-direction:column;
+gap:15px;
+}
+
+.logo{
+font-size:30px;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.hero img{
+width:150px;
+height:150px;
+}
+
+.quote{
+margin:15px;
+padding:22px;
+}
+
+.quote h3{
+font-size:22px;
+}
+
+.quote p{
+font-size:18px;
+}
+
 }
 
 </style>
@@ -78,20 +199,46 @@ color:#7a0000;
 <body>
 
 <header>
+
+<div class="logo">
+BhajanMarg
+</div>
+
+<nav>
 <a href="index.html">Home</a>
 <a href="quotes.html">Quotes</a>
 <a href="links.html">Links</a>
 <a href="gallery.html">Gallery</a>
 <a href="jaap.html">Jaap</a>
+</nav>
+
 </header>
 
+<section class="hero">
+
+<img src="gurudev.png" alt="Gurudev">
+
 <h1>प्रेरणादायक विचार</h1>
+
+<p>
+प्रतिदिन नए आध्यात्मिक विचार पढ़ें और जीवन में अपनाएँ।
+</p>
+
+</section>
+
+<div class="searchBox">
 
 <input
 id="search"
 placeholder="Quote या Date Search">
 
-<div id="quotes"></div><script>
+</div>
+
+<div id="quotes"></div><footer>
+© BhajanMarg | जय श्री राधे
+</footer>
+
+<script>
 
 let allQuotes=[];
 
@@ -114,7 +261,9 @@ Dec:11
 
 const parts=dateStr.split(" ");
 
-if(parts.length!==3) return new Date(0);
+if(parts.length!==3){
+return new Date(0);
+}
 
 const day=parseInt(parts[0]);
 const month=months[parts[1]];
@@ -185,16 +334,22 @@ document
 .addEventListener('input',e=>{
 
 const value=
-e.target.value.toLowerCase().trim();
+e.target.value
+.toLowerCase()
+.trim();
 
 const filtered=
 allQuotes.filter(x=>
 
-x.quote.toLowerCase().includes(value)
+x.quote
+.toLowerCase()
+.includes(value)
 
 ||
 
-x.date.toLowerCase().includes(value)
+x.date
+.toLowerCase()
+.includes(value)
 
 );
 
