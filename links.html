@@ -24,6 +24,7 @@ background:linear-gradient(
 );
 color:#222;
 min-height:100vh;
+transition:.4s;
 }
 
 header{
@@ -51,7 +52,7 @@ color:white;
 
 nav{
 display:flex;
-gap:18px;
+gap:15px;
 align-items:center;
 flex-wrap:wrap;
 }
@@ -65,6 +66,20 @@ font-weight:bold;
 
 nav a:hover{
 color:#fff5b5;
+}
+
+#darkBtn,
+#langSelect{
+border:none;
+padding:10px 12px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#darkBtn{
+background:white;
+color:#7a0000;
 }
 
 .hero{
@@ -143,6 +158,39 @@ margin-top:50px;
 font-weight:bold;
 }
 
+/* DARK MODE */
+
+.dark{
+background:#111 !important;
+color:#eee !important;
+}
+
+.dark .card{
+background:#1e1e1e;
+color:#eee;
+}
+
+.dark .card h2{
+color:#f4c430;
+}
+
+.dark header{
+background:linear-gradient(
+135deg,
+#2b0000,
+#5a0000,
+#b8860b
+);
+}
+
+.dark footer{
+background:linear-gradient(
+135deg,
+#2b0000,
+#b8860b
+);
+}
+
 @media(max-width:768px){
 
 header{
@@ -188,6 +236,15 @@ BhajanMarg
 <a href="gallery.html">Gallery</a>
 <a href="jaap.html">Jaap</a>
 
+<select id="langSelect" onchange="changeLanguage()">
+<option value="hi">🇮🇳 हिन्दी</option>
+<option value="en">🇬🇧 English</option>
+</select>
+
+<button id="darkBtn" onclick="toggleDarkMode()">
+🌙 Dark Mode
+</button>
+
 </nav>
 
 </header>
@@ -198,13 +255,17 @@ BhajanMarg
 
 <h1>BhajanMarg</h1>
 
-<p>
+<p id="heroText">
 भक्ति • प्रेम • नाम स्मरण
 </p>
 
 </section>
 
-<div id="linksContainer"></div><script>
+<div id="linksContainer"></div><footer id="footerText">
+© BhajanMarg | जय श्री राधे
+</footer>
+
+<script>
 
 fetch('links.json')
 .then(response => response.json())
@@ -227,7 +288,7 @@ container.innerHTML += `
 href="${link.url}"
 target="_blank">
 
-खोलें ↗
+<span class="openText">खोलें ↗</span>
 
 </a>
 
@@ -259,6 +320,101 @@ links.json फाइल नहीं मिली या उसमें त्�
 console.error(error);
 
 });
+
+/* DARK MODE */
+
+function toggleDarkMode(){
+
+document.body.classList.toggle("dark");
+
+if(document.body.classList.contains("dark")){
+
+localStorage.setItem("theme","dark");
+
+document.getElementById("darkBtn").innerHTML =
+"☀️ Light Mode";
+
+}else{
+
+localStorage.setItem("theme","light");
+
+document.getElementById("darkBtn").innerHTML =
+"🌙 Dark Mode";
+
+}
+
+}
+
+if(localStorage.getItem("theme")==="dark"){
+
+document.body.classList.add("dark");
+
+document.getElementById("darkBtn").innerHTML =
+"☀️ Light Mode";
+
+}
+
+/* LANGUAGE */
+
+const translations = {
+
+hi:{
+hero:"भक्ति • प्रेम • नाम स्मरण",
+footer:"© BhajanMarg | जय श्री राधे",
+open:"खोलें ↗"
+},
+
+en:{
+hero:"Devotion • Love • Holy Name",
+footer:"© BhajanMarg | Jai Shri Radhe",
+open:"Open ↗"
+}
+
+};
+
+function applyLanguage(lang){
+
+document.getElementById("heroText").innerText =
+translations[lang].hero;
+
+document.getElementById("footerText").innerText =
+translations[lang].footer;
+
+setTimeout(()=>{
+
+document.querySelectorAll(".openText")
+.forEach(btn=>{
+
+btn.innerText =
+translations[lang].open;
+
+});
+
+},300);
+
+}
+
+function changeLanguage(){
+
+const lang =
+document.getElementById("langSelect").value;
+
+localStorage.setItem(
+"language",
+lang
+);
+
+applyLanguage(lang);
+
+}
+
+const savedLanguage =
+localStorage.getItem("language") || "hi";
+
+document.getElementById("langSelect").value =
+savedLanguage;
+
+applyLanguage(savedLanguage);
 
 </script>
 
