@@ -24,6 +24,7 @@ background:linear-gradient(
 );
 color:#222;
 min-height:100vh;
+transition:.4s;
 }
 
 header{
@@ -52,7 +53,7 @@ text-shadow:2px 2px 4px rgba(0,0,0,.3);
 
 nav{
 display:flex;
-gap:18px;
+gap:15px;
 align-items:center;
 flex-wrap:wrap;
 }
@@ -67,6 +68,20 @@ transition:.3s;
 
 nav a:hover{
 color:#fff5b5;
+}
+
+#darkBtn,
+#langSelect{
+border:none;
+padding:10px 12px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+}
+
+#darkBtn{
+background:white;
+color:#7a0000;
 }
 
 .hero{
@@ -91,23 +106,23 @@ margin-top:20px;
 
 .hero p{
 font-size:22px;
-max-width:800px;
+max-width:900px;
 margin:15px auto;
 line-height:1.8;
 }
 
 .searchBox{
-max-width:700px;
-margin:0 auto 30px;
+max-width:850px;
+margin:20px auto;
 padding:0 20px;
 }
 
 #search{
 width:100%;
 padding:16px;
-font-size:18px;
 border:none;
 border-radius:12px;
+font-size:18px;
 outline:none;
 box-shadow:0 4px 15px rgba(0,0,0,.12);
 }
@@ -135,10 +150,10 @@ line-height:1.8;
 
 .noResult{
 text-align:center;
+padding:40px;
 font-size:24px;
 font-weight:bold;
 color:#7a0000;
-padding:40px;
 }
 
 footer{
@@ -152,15 +167,9 @@ text-align:center;
 padding:22px;
 margin-top:50px;
 font-weight:bold;
-}#darkBtn{
-border:none;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-background:white;
-color:#7a0000;
 }
+
+/* DARK MODE */
 
 .dark{
 background:#111 !important;
@@ -170,6 +179,10 @@ color:#eee !important;
 .dark .quote{
 background:#1e1e1e;
 color:#eee;
+}
+
+.dark .quote h3{
+color:#f4c430;
 }
 
 .dark header{
@@ -189,8 +202,7 @@ background:linear-gradient(
 );
 }
 
-.dark h1,
-.dark .quote h3{
+.dark .hero h1{
 color:#f4c430;
 }
 
@@ -250,13 +262,19 @@ BhajanMarg
 </div>
 
 <nav>
+
 <a href="index.html">Home</a>
 <a href="quotes.html">Quotes</a>
 <a href="links.html">Links</a>
 <a href="gallery.html">Gallery</a>
 <a href="jaap.html">Jaap</a>
 
-<button id="darkBtn" onclick="toggleDarkMode()">
+<select id="langSelect">
+<option value="hi">🇮🇳 हिन्दी</option>
+<option value="en">🇬🇧 English</option>
+</select>
+
+<button id="darkBtn">
 🌙 Dark Mode
 </button>
 
@@ -268,9 +286,11 @@ BhajanMarg
 
 <img src="gurudev.png" alt="Gurudev">
 
-<h1>प्रेरणादायक विचार</h1>
+<h1 id="pageTitle">
+प्रेरणादायक विचार
+</h1>
 
-<p>
+<p id="pageText">
 प्रतिदिन नए आध्यात्मिक विचार पढ़ें और जीवन में अपनाएँ।
 </p>
 
@@ -284,42 +304,66 @@ placeholder="Quote या Date Search">
 
 </div>
 
-<div id="quotes"></div><footer>
+<div id="quotes"></div>
+
+<footer id="footerText">
 © BhajanMarg | जय श्री राधे
 </footer>
-function toggleDarkMode(){
 
-document.body.classList.toggle("dark");
+<script>const quoteTranslations = {
 
-if(document.body.classList.contains("dark")){
+"राधे नाम का स्मरण मन को शांति और आनंद प्रदान करता है।":
+"Remembering the name of Radhe brings peace and joy to the mind.",
 
-localStorage.setItem("theme","dark");
+"भगवान का नाम ही जीवन का सबसे बड़ा सहारा है।":
+"The name of God is the greatest support in life.",
 
-document.getElementById("darkBtn").innerHTML=
-"☀️ Light Mode";
+"प्रेम और भक्ति से किया गया स्मरण प्रभु तक पहुँचता है।":
+"Remembrance performed with love and devotion reaches the Lord.",
 
-}else{
+"हर परिस्थिति में राधे राधे का जाप मन को स्थिर रखता है।":
+"Chanting Radhe Radhe keeps the mind steady in every situation.",
 
-localStorage.setItem("theme","light");
+"सच्ची भक्ति वही है जिसमें अहंकार का स्थान न हो।":
+"True devotion leaves no room for ego.",
 
-document.getElementById("darkBtn").innerHTML=
-"🌙 Dark Mode";
+"श्री राधा की कृपा से जीवन में मधुरता आती है।":
+"By the grace of Shri Radha, sweetness enters life.",
 
+"नाम जप से मन निर्मल और हृदय प्रसन्न होता है।":
+"Chanting the holy name purifies the mind and gladdens the heart."
+
+};
+
+const uiText = {
+
+hi:{
+title:"प्रेरणादायक विचार",
+desc:"प्रतिदिन नए आध्यात्मिक विचार पढ़ें और जीवन में अपनाएँ।",
+search:"Quote या Date Search",
+footer:"© BhajanMarg | जय श्री राधे",
+dark:"🌙 Dark Mode",
+light:"☀️ Light Mode",
+empty:"कोई Quote नहीं मिला"
+},
+
+en:{
+title:"Inspirational Quotes",
+desc:"Read daily spiritual thoughts and apply them in life.",
+search:"Search Quote or Date",
+footer:"© BhajanMarg | Jai Shri Radhe",
+dark:"🌙 Dark Mode",
+light:"☀️ Light Mode",
+empty:"No Quotes Found"
 }
 
-}
-
-if(localStorage.getItem("theme")==="dark"){
-
-document.body.classList.add("dark");
-
-document.getElementById("darkBtn").innerHTML=
-"☀️ Light Mode";
-
-}
-<script>
+};
 
 let allQuotes=[];
+let currentLanguage=
+localStorage.getItem("language") || "hi";
+
+/* DATE PARSER */
 
 function parseDate(dateStr){
 
@@ -344,53 +388,42 @@ if(parts.length!==3){
 return new Date(0);
 }
 
-const day=parseInt(parts[0]);
-const month=months[parts[1]];
-const year=parseInt(parts[2]);
-
-return new Date(year,month,day);
+return new Date(
+parseInt(parts[2]),
+months[parts[1]],
+parseInt(parts[0])
+);
 
 }
 
-fetch('quotes.json')
-.then(r=>r.json())
-.then(data=>{
-
-const today=new Date();
-
-today.setHours(23,59,59,999);
-
-allQuotes=data.filter(q=>{
-
-return parseDate(q.date)<=today;
-
-});
-
-allQuotes.sort((a,b)=>
-parseDate(b.date)-parseDate(a.date)
-);
-
-showQuotes(allQuotes);
-
-});
+/* SHOW QUOTES */
 
 function showQuotes(arr){
 
 const div=
-document.getElementById('quotes');
+document.getElementById("quotes");
 
-div.innerHTML='';
+div.innerHTML="";
 
 if(arr.length===0){
 
-div.innerHTML=
-'<div class="noResult">कोई Quote नहीं मिला</div>';
+div.innerHTML=`
+<div class="noResult">
+${uiText[currentLanguage].empty}
+</div>
+`;
 
 return;
-
 }
 
 arr.forEach(q=>{
+
+let quoteText=q.quote;
+
+if(currentLanguage==="en"){
+quoteText=
+quoteTranslations[q.quote] || q.quote;
+}
 
 div.innerHTML+=`
 
@@ -398,7 +431,7 @@ div.innerHTML+=`
 
 <h3>${q.date}</h3>
 
-<p>${q.quote}</p>
+<p>${quoteText}</p>
 
 </div>
 
@@ -408,9 +441,33 @@ div.innerHTML+=`
 
 }
 
+/* LOAD QUOTES */
+
+fetch("quotes.json")
+.then(r=>r.json())
+.then(data=>{
+
+const today=new Date();
+
+today.setHours(23,59,59,999);
+
+allQuotes=data.filter(q=>
+parseDate(q.date)<=today
+);
+
+allQuotes.sort((a,b)=>
+parseDate(b.date)-parseDate(a.date)
+);
+
+showQuotes(allQuotes);
+
+});
+
+/* SEARCH */
+
 document
-.getElementById('search')
-.addEventListener('input',e=>{
+.getElementById("search")
+.addEventListener("input",e=>{
 
 const value=
 e.target.value
@@ -418,23 +475,142 @@ e.target.value
 .trim();
 
 const filtered=
-allQuotes.filter(x=>
+allQuotes.filter(q=>{
 
-x.quote
-.toLowerCase()
-.includes(value)
+let text=q.quote.toLowerCase();
+
+let eng=
+(
+quoteTranslations[q.quote] || ""
+).toLowerCase();
+
+return(
+
+text.includes(value)
 
 ||
 
-x.date
+eng.includes(value)
+
+||
+
+q.date
 .toLowerCase()
 .includes(value)
 
 );
 
+});
+
 showQuotes(filtered);
 
 });
+
+/* LANGUAGE */
+
+function applyLanguage(){
+
+document.getElementById("pageTitle")
+.innerText=
+uiText[currentLanguage].title;
+
+document.getElementById("pageText")
+.innerText=
+uiText[currentLanguage].desc;
+
+document.getElementById("search")
+.placeholder=
+uiText[currentLanguage].search;
+
+document.getElementById("footerText")
+.innerText=
+uiText[currentLanguage].footer;
+
+showQuotes(allQuotes);
+
+}
+
+document
+.getElementById("langSelect")
+.value=currentLanguage;
+
+document
+.getElementById("langSelect")
+.addEventListener("change",function(){
+
+currentLanguage=this.value;
+
+localStorage.setItem(
+"language",
+currentLanguage
+);
+
+applyLanguage();
+
+});
+
+/* DARK MODE */
+
+function updateThemeButton(){
+
+const btn=
+document.getElementById("darkBtn");
+
+if(
+document.body.classList.contains("dark")
+){
+
+btn.innerHTML=
+uiText[currentLanguage].light;
+
+}else{
+
+btn.innerHTML=
+uiText[currentLanguage].dark;
+
+}
+
+}
+
+document
+.getElementById("darkBtn")
+.addEventListener("click",()=>{
+
+document.body.classList.toggle("dark");
+
+if(
+document.body.classList.contains("dark")
+){
+
+localStorage.setItem(
+"theme",
+"dark"
+);
+
+}else{
+
+localStorage.setItem(
+"theme",
+"light"
+);
+
+}
+
+updateThemeButton();
+
+});
+
+if(
+localStorage.getItem("theme")
+==="dark"
+){
+
+document.body.classList.add("dark");
+
+}
+
+applyLanguage();
+updateThemeButton();
 
 </script>
 
