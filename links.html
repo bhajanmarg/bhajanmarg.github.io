@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Links | BhajanMarg</title>
+
+<style>
+
+body{
+font-family:Arial,sans-serif;
+background:#f8f3e7;
+margin:0;
+padding:0;
+}
+
+header{
+background:#7a0000;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:40px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+}
+
+.hero{
+text-align:center;
+padding:40px 20px;
+}
+
+.hero img{
+width:140px;
+height:140px;
+border-radius:50%;
+object-fit:cover;
+border:5px solid white;
+box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.hero h1{
+margin-top:15px;
+font-size:50px;
+color:#7a0000;
+}
+
+.hero p{
+font-size:20px;
+}
+
+.card{
+background:white;
+max-width:800px;
+margin:25px auto;
+padding:30px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.card h2{
+color:#7a0000;
+margin-bottom:10px;
+}
+
+.card p{
+font-size:18px;
+margin-bottom:20px;
+color:#555;
+}
+
+.btn{
+display:inline-block;
+background:#7a0000;
+color:white;
+padding:12px 25px;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+
+.btn:hover{
+opacity:.9;
+}
+
+footer{
+background:#7a0000;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:50px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<a href="index.html">Home</a>
+<a href="quotes.html">Quotes</a>
+<a href="links.html">Links</a>
+</nav>
+</header>
+
+<section class="hero">
+
+<img src="gurudev.png">
+
+<h1>BhajanMarg</h1>
+
+<p>भक्ति • प्रेम • नाम स्मरण</p>
+
+</section>
+<div id="linksContainer"></div>
+
+<footer>
+© BhajanMarg
+</footer>
+
+<script>
+
+fetch('links.json')
+.then(response => response.json())
+.then(data => {
+
+const container =
+document.getElementById('linksContainer');
+
+data.forEach(link => {
+
+container.innerHTML += `
+
+<div class="card">
+
+<h2>${link.title}</h2>
+
+<p>${link.description}</p>
+
+<a class="btn"
+href="${link.url}"
+target="_blank">
+
+खोलें
+
+</a>
+
+</div>
+
+`;
+
+});
+
+});
+
+</script>
+
+</body>
+</html>

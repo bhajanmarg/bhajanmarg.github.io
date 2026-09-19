@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BhajanMarg Gallery</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f1e8;
+}
+
+.nav{
+    background:#8b0000;
+    padding:15px;
+    text-align:center;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.header{
+    text-align:center;
+    padding:30px 15px;
+}
+
+.header img{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:5px solid white;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+.header h1{
+    color:#8b0000;
+    margin:15px 0 5px;
+    font-size:50px;
+}
+
+.header p{
+    font-size:28px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.gallery img{
+    width:100%;
+    border-radius:15px;
+    transition:.3s;
+    cursor:pointer;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.gallery img:hover{
+    transform:scale(1.03);
+}
+
+.lightbox{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.9);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+    <a href="index.html">Home</a>
+    <a href="quotes.html">Quotes</a>
+    <a href="links.html">Links</a>
+    <a href="gallery.html">Gallery</a>
+</div>
+
+<div class="header">
+    <img src="gurudev.png">
+    <h1>BhajanMarg</h1>
+    <p>श्री हित प्रेमानंद जी महाराज</p>
+</div>
+
+<div class="gallery">
+
+<img src="images/6158933637785653984.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653985.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653986.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653987.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653988.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653989.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653990.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653991.jpg" onclick="openImg(this.src)">
+<img src="images/6158933637785653992.jpg" onclick="openImg(this.src)">
+
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeImg()">
+    <img id="showimg">
+</div>
+
+<script>
+function openImg(src){
+    document.getElementById("lightbox").style.display="flex";
+    document.getElementById("showimg").src=src;
+}
+
+function closeImg(){
+    document.getElementById("lightbox").style.display="none";
+}
+</script>
+
+</body>
+</html>
