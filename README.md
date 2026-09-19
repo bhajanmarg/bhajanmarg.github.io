@@ -1,49 +1,55 @@
-<p align="center">
-  <img src="images/readme-banner.png" width="100%">
-</p>
+# 🌸 BhajanMarg
 
-# BhajanMarg
-
-Official website dedicated to the teachings, quotes, and spiritual inspiration of Shri Hit Premanand Ji Maharaj.# BhajanMarg
-
-BhajanMarg is a devotional website dedicated to sharing the teachings, quotes, and spiritual inspiration of Shri Hit Premanand Ji Maharaj.
-
-## Features
-
-- Daily Spiritual Quotes
-- Photo Gallery
-- Important Links
-- Mobile Friendly Design
-- Fast GitHub Pages Hosting
-
-## Pages
-
-### Home
-Main landing page with introduction and navigation.
-
-### Quotes
-Collection of devotional and inspirational quotes.
-
-### Gallery
-Photo gallery of Shri Hit Premanand Ji Maharaj.
-
-### Links
-Important BhajanMarg and social media links.
-
-## Website
-
-https://blacklover14.github.io/bhajanmarg/
-
-## Technology Used
-
-- HTML5
-- CSS3
-- GitHub Pages
-
-## Mission
-
-To spread devotion, spirituality, and the teachings of Shri Radha Vallabh tradition through a simple and accessible platform.
+> **जय श्री राधे** 🙏  
+> A devotional platform dedicated to Shri Hit Premanand Ji Maharaj.
 
 ---
 
-जय श्री राधे ❤️
+## ✨ Features
+
+🔹 Daily Spiritual Quotes  
+🔹 Naam Jaap Counter  
+🔹 Gurudev Gallery  
+🔹 Hindi & English Support  
+🔹 Dark Mode  
+🔹 Mobile Friendly Design  
+
+---
+
+## 📖 Website Sections
+
+🏠 Home  
+📜 Quotes  
+🖼️ Gallery  
+🔗 Links  
+📿 Jaap Counter  
+
+---
+
+## 🛠️ Built With
+
+- HTML5
+- CSS3
+- JavaScript
+- JSON
+- GitHub Pages
+
+---
+
+## 🌐 Live Website
+
+### https://bhajanmarg.github.io
+
+---
+
+## 🙏 Mission
+
+To spread devotion, satsang, naam jap and spiritual inspiration through a simple and accessible platform.
+
+---
+
+## ❤️ Radhe Radhe
+
+**श्री हित प्रेमानंद गोविंद शरण जी महाराज की जय**
+
+🌸 जय श्री राधे 🌸
