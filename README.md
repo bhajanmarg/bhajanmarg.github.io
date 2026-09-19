@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="images/readme-banner.png" width="100%">
+</p>
 # 🌸 BhajanMarg
 
 > **जय श्री राधे** 🙏  
