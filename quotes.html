@@ -1,258 +1,4 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Quotes | BhajanMarg</title>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:Arial,sans-serif;
-background:linear-gradient(
-180deg,
-#fff9df 0%,
-#fff2b8 50%,
-#f7d86a 100%
-);
-color:#222;
-min-height:100vh;
-transition:.4s;
-}
-
-header{
-background:linear-gradient(
-135deg,
-#6d0000 0%,
-#a00000 40%,
-#f4c430 100%
-);
-padding:20px 30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:1000;
-box-shadow:0 3px 12px rgba(0,0,0,.15);
-}
-
-.logo{
-font-size:38px;
-font-weight:bold;
-color:white;
-}
-
-nav{
-display:flex;
-gap:15px;
-align-items:center;
-flex-wrap:wrap;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-font-size:18px;
-font-weight:bold;
-}
-
-nav a:hover{
-color:#fff5b5;
-}
-
-#darkBtn,
-#langSelect{
-border:none;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold;
-cursor:pointer;
-}
-
-#darkBtn{
-background:white;
-color:#7a0000;
-}
-
-.pageTitle{
-text-align:center;
-padding:40px 20px 20px;
-}
-
-.pageTitle h1{
-font-size:50px;
-color:#7a0000;
-margin-bottom:10px;
-}
-
-.pageTitle p{
-font-size:20px;
-}
-
-.searchBox{
-text-align:center;
-margin:20px;
-}
-
-#search{
-width:500px;
-max-width:90%;
-padding:15px;
-font-size:18px;
-border-radius:12px;
-border:2px solid #f4c430;
-outline:none;
-}
-
-.quote{
-background:#fffdf0;
-max-width:950px;
-margin:20px auto;
-padding:30px;
-border-radius:18px;
-box-shadow:0 5px 20px rgba(0,0,0,.12);
-border-left:8px solid #f4c430;
-}
-
-.quote h3{
-color:#7a0000;
-font-size:26px;
-margin-bottom:15px;
-}
-
-.quote p{
-font-size:22px;
-line-height:1.8;
-}
-
-footer{
-background:linear-gradient(
-135deg,
-#6d0000,
-#f4c430
-);
-color:white;
-text-align:center;
-padding:22px;
-margin-top:50px;
-font-weight:bold;
-}
-
-/* DARK MODE */
-
-.dark{
-background:#111 !important;
-color:#eee !important;
-}
-
-.dark .quote{
-background:#1e1e1e;
-color:#eee;
-}
-
-.dark .quote h3{
-color:#f4c430;
-}
-
-.dark header{
-background:linear-gradient(
-135deg,
-#2b0000,
-#5a0000,
-#b8860b
-);
-}
-
-.dark footer{
-background:linear-gradient(
-135deg,
-#2b0000,
-#b8860b
-);
-}
-
-@media(max-width:768px){
-
-header{
-flex-direction:column;
-gap:15px;
-}
-
-.logo{
-font-size:30px;
-}
-
-.pageTitle h1{
-font-size:36px;
-}
-
-.quote p{
-font-size:18px;
-}
-
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-
-<div class="logo">
-BhajanMarg
-</div>
-
-<nav>
-
-<a href="index.html">Home</a>
-<a href="quotes.html">Quotes</a>
-<a href="links.html">Links</a>
-<a href="gallery.html">Gallery</a>
-<a href="jaap.html">Jaap</a>
-
-<select id="langSelect" onchange="changeLanguage()">
-<option value="hi">🇮🇳 हिन्दी</option>
-<option value="en">🇬🇧 English</option>
-</select>
-
-<button id="darkBtn" onclick="toggleDarkMode()">
-🌙 Dark Mode
-</button>
-
-</nav>
-
-</header>
-
-<section class="pageTitle">
-
-<h1 id="title">
-प्रेरणादायक विचार
-</h1>
-
-<p id="subtitle">
-प्रतिदिन नए आध्यात्मिक विचार पढ़ें
-</p>
-
-</section>
-
-<div class="searchBox">
-
-<input
-id="search"
-placeholder="Quote Search">
-
-</div>
-
-<div id="quotes"></div><script>
+<script>
 
 let allQuotes = [];
 
@@ -260,11 +6,13 @@ const translations = {
 
 hi:{
 title:"प्रेरणादायक विचार",
+subtitle:"प्रतिदिन नए आध्यात्मिक विचार पढ़ें",
 search:"विचार खोजें..."
 },
 
 en:{
 title:"Inspirational Quotes",
+subtitle:"Read spiritual thoughts every day",
 search:"Search Quotes..."
 }
 
@@ -274,8 +22,11 @@ function applyLanguage(lang){
 
 document.documentElement.lang = lang;
 
-document.getElementById("pageTitle").innerText =
+document.getElementById("title").innerText =
 translations[lang].title;
+
+document.getElementById("subtitle").innerText =
+translations[lang].subtitle;
 
 document.getElementById("search").placeholder =
 translations[lang].search;
@@ -284,19 +35,16 @@ translations[lang].search;
 
 function changeLanguage(){
 
-let lang =
+const lang =
 document.getElementById("langSelect").value;
 
-localStorage.setItem(
-"language",
-lang
-);
+localStorage.setItem("language",lang);
 
 applyLanguage(lang);
 
 }
 
-let savedLanguage =
+const savedLanguage =
 localStorage.getItem("language") || "hi";
 
 document.getElementById("langSelect").value =
@@ -304,30 +52,68 @@ savedLanguage;
 
 applyLanguage(savedLanguage);
 
-fetch('quotes.json')
-.then(r=>r.json())
-.then(data=>{
+fetch("quotes.json")
+.then(response => response.json())
+.then(data => {
 
-allQuotes = data.reverse();
+allQuotes = [...data];
+
+shuffleQuotes();
 
 showQuotes(allQuotes);
 
+})
+.catch(error => {
+
+document.getElementById("quotes").innerHTML = `
+
+<div class="quote">
+
+<h3>⚠️ Error</h3>
+
+<p>quotes.json load नहीं हुआ।</p>
+
+</div>
+
+`;
+
+console.error(error);
+
 });
+
+function shuffleQuotes(){
+
+for(let i=allQuotes.length-1;i>0;i--){
+
+let j=Math.floor(Math.random()*(i+1));
+
+[allQuotes[i],allQuotes[j]]
+=
+[allQuotes[j],allQuotes[i]];
+
+}
+
+}
 
 function showQuotes(arr){
 
 const div =
-document.getElementById('quotes');
+document.getElementById("quotes");
 
-div.innerHTML='';
+div.innerHTML = "";
 
-arr.forEach(q=>{
+arr.forEach(q => {
 
 div.innerHTML += `
+
 <div class="quote">
+
 <h3>${q.date}</h3>
+
 <p>${q.quote}</p>
+
 </div>
+
 `;
 
 });
@@ -335,20 +121,36 @@ div.innerHTML += `
 }
 
 document
-.getElementById('search')
-.addEventListener('input',e=>{
+.getElementById("search")
+.addEventListener("input",function(){
 
 const value =
-e.target.value.toLowerCase();
+this.value.toLowerCase();
 
-showQuotes(
-
-allQuotes.filter(x=>
-x.quote.toLowerCase().includes(value)
-)
-
+const filtered =
+allQuotes.filter(q =>
+q.quote.toLowerCase().includes(value)
 );
 
+showQuotes(filtered);
+
 });
+
+function toggleDarkMode(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"darkMode",
+document.body.classList.contains("dark")
+);
+
+}
+
+if(localStorage.getItem("darkMode")==="true"){
+
+document.body.classList.add("dark");
+
+}
 
 </script>
