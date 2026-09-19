@@ -112,6 +112,14 @@ border:2px solid #f4c430;
 outline:none;
 }
 
+.counterBox{
+text-align:center;
+font-size:24px;
+font-weight:bold;
+color:#7a0000;
+margin-bottom:20px;
+}
+
 .quote{
 background:#fffdf0;
 max-width:950px;
@@ -131,6 +139,33 @@ margin-bottom:15px;
 .quote p{
 font-size:22px;
 line-height:1.8;
+}
+
+.quoteButtons{
+margin-top:20px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.copyBtn{
+background:#7a0000;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.whatsappBtn{
+background:#25D366;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
 }
 
 footer{
@@ -157,6 +192,10 @@ color:#eee;
 }
 
 .dark .quote h3{
+color:#f4c430;
+}
+
+.dark .counterBox{
 color:#f4c430;
 }
 
@@ -251,6 +290,11 @@ placeholder="विचार खोजें..."
 
 </div>
 
+<div class="counterBox">
+कुल विचार:
+<span id="quoteCount">0</span>
+</div>
+
 <div id="quotes"></div><footer>
 © BhajanMarg | Jai Shri Radhe
 </footer>
@@ -312,7 +356,7 @@ savedLanguage;
 
 applyLanguage(savedLanguage);
 
-/* Quotes Load */
+/* Load Quotes */
 
 fetch("quotes.json")
 
@@ -348,19 +392,19 @@ console.error(error);
 
 });
 
-/* Random Shuffle */
+/* Random Quotes */
 
 function shuffleQuotes(){
 
 for(
-let i=allQuotes.length-1;
-i>0;
+let i = allQuotes.length - 1;
+i > 0;
 i--
 ){
 
 let j =
 Math.floor(
-Math.random()*(i+1)
+Math.random() * (i + 1)
 );
 
 [allQuotes[i],allQuotes[j]]
@@ -380,6 +424,9 @@ document.getElementById("quotes");
 
 div.innerHTML = "";
 
+document.getElementById("quoteCount").innerText =
+arr.length;
+
 arr.forEach(q => {
 
 div.innerHTML += `
@@ -389,6 +436,22 @@ div.innerHTML += `
 <h3>${q.date}</h3>
 
 <p>${q.quote}</p>
+
+<div class="quoteButtons">
+
+<button
+class="copyBtn"
+onclick="copyQuote(\`${q.quote}\`)">
+📋 Copy
+</button>
+
+<button
+class="whatsappBtn"
+onclick="shareWhatsApp(\`${q.quote}\`)">
+📱 WhatsApp
+</button>
+
+</div>
 
 </div>
 
@@ -428,6 +491,28 @@ q.quote
 showQuotes(filtered);
 
 });
+
+/* Copy Quote */
+
+function copyQuote(text){
+
+navigator.clipboard.writeText(text);
+
+alert("Quote Copied ✅");
+
+}
+
+/* WhatsApp Share */
+
+function shareWhatsApp(text){
+
+window.open(
+"https://wa.me/?text=" +
+encodeURIComponent(text),
+"_blank"
+);
+
+}
 
 /* Dark Mode */
 
